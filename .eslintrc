@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "env": {
+    "node": true,
+    "es6": true
+  },
+
+  "plugins": ["babel"],
+
+  "extends": ["eslint:recommended", "airbnb-base"]
+}
