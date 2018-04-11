@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import uniqueValidator from 'mongoose-unique-validator';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import uniqueValidator from "mongoose-unique-validator";
 
 const schema = new mongoose.Schema(
   {
@@ -10,13 +10,13 @@ const schema = new mongoose.Schema(
       required: true,
       lowercase: true,
       index: true,
-      unique: true,
+      unique: true
     },
     passwordHash: { type: String, required: true },
-    confirmed: { type: Boolean, required: true },
-    confirmationToken: { type: String, default: '' },
+    confirmed: { type: Boolean, default: false },
+    confirmationToken: { type: String, default: "" }
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 schema.methods.isValidPassword = function isValidPassword(password) {
@@ -35,24 +35,20 @@ schema.methods.generateJWT = function generateJWT() {
   return jwt.sign(
     {
       email: this.email,
+      confirmed: this.confirmed
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET
   );
-};
-
-schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
-  return `${process.env.HOST}/confirmation/${this.confirmationToken}`;
 };
 
 schema.methods.toAuthJSON = function toAuthJSON() {
   return {
     email: this.email,
     confirmed: this.confirmed,
-    token: this.generateJWT(),
+    token: this.generateJWT()
   };
 };
 
+schema.plugin(uniqueValidator, { message: "This email is already taken" });
 
-schema.plugin(uniqueValidator, { message: 'This email already registered' });
-
-export default mongoose.model('User', schema);
+export default mongoose.model("User", schema);

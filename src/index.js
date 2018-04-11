@@ -10,6 +10,7 @@ import Promise from 'bluebird';
 
 import configs from './configs';
 import auth from './routes/auth';
+import user from './routes/user';
 
 const { PORT } = configs;
 
@@ -21,7 +22,8 @@ app.use(cors());
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URL);
 
-app.use('/api/auth', auth);
+app.use('/auth', auth);
+app.use('/user', user);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
