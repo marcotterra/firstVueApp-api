@@ -4,7 +4,7 @@ import { parseErrors } from "../utils";
 
 const router = express.Router();
 
-router.post("/register", async (req, res) => {
+router.post("/new", async (req, res) => {
   const { email, password } = req.body.user;
 
   try {
