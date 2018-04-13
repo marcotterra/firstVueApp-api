@@ -1,7 +1,11 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const configs = {
   PORT: 8000,
-  db: {
-    database: process.env.DB_NAME,
+  DB: {
+    url: process.env.MONGODB_URL,
   },
 };
 

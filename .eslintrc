@@ -1,5 +1,6 @@
 {
   "parser": "babel-eslint",
+
   "parserOptions": {
     "sourceType": "module"
   },
@@ -9,7 +10,11 @@
     "es6": true
   },
 
-  "plugins": ["babel"],
+  "plugins": ["prettier"],
 
-  "extends": ["eslint:recommended", "airbnb-base"]
+  "extends": ["airbnb-base", "prettier"],
+
+  "rules": {
+    "no-underscore-dangle": [1, { "allow": ["_id"] }]
+  }
 }
